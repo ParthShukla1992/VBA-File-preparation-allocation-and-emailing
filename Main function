@@ -1,0 +1,323 @@
+Public newsubvalue As Integer
+Public AB As Long
+Public AT As Long
+Public PS As Long
+Public EK As Long
+Public ABP As Long
+Public ATP As Long
+Public PSP As Long
+Public EKP As Long
+Public rng As Range
+Public Total As Integer
+Public Pending As Integer
+Public i As Integer
+
+Sub FRVextraction()
+'
+' extraction Macro
+'
+
+'first open file with path--- go to sheetWorkbooks.Open("C:\Users\"user.name"\Desktop\January\Examples.xlsx").Worksheets("Family Relationship").Activate
+    ActiveWorkbook.SaveAs Filename:="xxxwith fullpath", FileFormat:=52
+
+    Columns("C:C").Select
+    Selection.Insert Shift:=xlToRight
+    Range("C1").Select
+    ActiveCell.FormulaR1C1 = "Concatenate"
+    Range("C2").Select
+    ActiveCell.FormulaR1C1 = "=RC[-1]&RC[2]"
+    Range("B3").Select
+    Range("B" & Rows.Count).End(xlUp).Select
+    ActiveCell.Offset(0, 1).Select
+    'below is ctrl d and paste spcl
+    Range(Selection, Selection.End(xlUp)).Select
+    Selection.FillDown
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Range("F2").Select
+    Dim lastfiledate As Variant
+    lastfiledate = InputBox("Give me last file's date in dd-mm-yyyy")
+    Workbooks.Open Filename:= _
+        "C:\Users\"user.name"\Desktop\xxx\xxx_" & lastfiledate & ".xlsm"
+    Dim lastfilename As Variant
+    lastfilename = "xxx_" & lastfiledate & ".xlsm"
+    Range("A1").Select
+    If ActiveSheet.AutoFilterMode Then 'autofilter is 'on'
+    On Error Resume Next   'turn off error reporting
+    ActiveSheet.ShowAllData
+    On Error GoTo 0   'turn error reporting back on
+    End If
+    Columns.EntireColumn.Hidden = False 'unhide columns and rows
+    Rows.EntireRow.Hidden = False
+    Range("A1").Select
+    Windows("Portfoliovalidation.xlsm").Activate
+    ActiveCell.FormulaR1C1 = _
+        "=VLOOKUP(RC[-3],'[" & lastfilename & "]Family Relationship'!R2C3:R1500C6,4,0)"
+    Call delay(2)
+    ActiveCell.Offset(0, -1).Select
+    Selection.End(xlDown).Select
+    ActiveCell.Offset(0, 1).Select
+    Call delay(2)
+    Range(Selection, "F2").Select
+    Call delay(4)
+    Selection.FillDown
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks _
+        :=False, Transpose:=False
+    Range("Q1").Select
+    Windows(lastfilename).Activate
+    Range("A1").Select
+    Range("Q1:AC1").Select
+    Selection.Copy
+    Windows("Portfoliovalidation.xlsm").Activate
+    ActiveSheet.Paste
+    Range("Q2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=VLOOKUP(RC[-14],'[" & lastfilename & "]Family Relationship'!R2C3:R1500C29,15,0)"
+    Range("Q2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=VLOOKUP(RC3,'[" & lastfilename & "]Family Relationship'!R2C3:R1500C29,15,0)"
+    Range("R2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=VLOOKUP(RC3,'[" & lastfilename & "]Family Relationship'!R2C3:R1500C29,16,0)"
+    Range("S2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=VLOOKUP(RC3,'[" & lastfilename & "]Family Relationship'!R2C3:R1500C29,17,0)"
+    Range("T2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=VLOOKUP(RC3,'[" & lastfilename & "]Family Relationship'!R2C3:R1500C29,18,0)"
+    Range("U2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=VLOOKUP(RC3,'[" & lastfilename & "]Family Relationship'!R2C3:R1500C29,19,0)"
+    Range("V2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=VLOOKUP(RC3,'[" & lastfilename & "]Family Relationship'!R2C3:R1500C29,20,0)"
+    Range("W2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=VLOOKUP(RC3,'[" & lastfilename & "]Family Relationship'!R2C3:R1500C29,21,0)"
+    Range("X2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=VLOOKUP(RC3,'[" & lastfilename & "]Family Relationship'!R2C3:R1500C29,22,0)"
+    Range("Y2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=VLOOKUP(RC3,'[" & lastfilename & "]Family Relationship'!R2C3:R1500C29,23,0)"
+    Range("Z2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=VLOOKUP(RC3,'[" & lastfilename & "]Family Relationship'!R2C3:R1500C29,24,0)"
+    Range("AA2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=VLOOKUP(RC3,'[" & lastfilename & "]Family Relationship'!R2C3:R1500C29,25,0)"
+    Range("AB2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=VLOOKUP(RC3,'[" & lastfilename & "]Family Relationship'!R2C3:R1500C29,26,0)"
+    Range("AC2").Select
+    ActiveCell.FormulaR1C1 = _
+        "=VLOOKUP(RC3,'[" & lastfilename & "]Family Relationship'!R2C3:R1500C29,27,0)"
+    ActiveCell.Offset(0, -16).Select
+    Range("M" & Rows.Count).End(xlUp).Select
+    ActiveCell.Offset(0, 4).Select
+    Range(Selection, "AC" & ActiveCell.Row).Select
+    Call delay(1)
+    Range(Selection, Selection.End(xlUp)).Select
+    Selection.FillDown
+    Selection.End(xlUp).Select
+    Range("A1").Select
+    Range(Selection, Selection.End(xlToRight)).Select
+    Range(Selection, Selection.End(xlDown)).Select
+    Selection.Copy
+    Selection.PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, SkipBlanks:=False, Transpose:=False
+    Range("A1").Select
+    Workbooks(lastfilename).Close (True)
+    Call formatting
+    Dim todaydate As Variant
+    todaydate = Date
+    ActiveWorkbook.SaveAs Filename:="C:\Users\"user.name"\xxx\xxx_" & todaydate & ".xlsm"
+    Call Send_Email
+    ActiveWorkbook.Close
+    
+End Sub
+Sub formatting()
+'
+' formatting Macro
+'
+
+'
+    Selection.AutoFilter
+    Range("F1").Select
+    ActiveSheet.Range("$A$1:$AC$1500").AutoFilter Field:=6, Criteria1:="#N/A"
+    Call delay(1)
+    Call selectVisibleRange
+        
+    End Sub
+    Sub selectVisibleRange()
+
+    
+    Sheets.Add.Name = "NewSubs"
+    Worksheets("Family Relationship").Activate
+    Worksheets("Family Relationship").Range("A1:AC1500").SpecialCells(xlCellTypeVisible).Copy
+    Worksheets("NewSubs").Activate
+    Worksheets("NewSubs").Cells(1, 1).PasteSpecial
+    Worksheets("Family Relationship").Activate
+    Call delNA
+    Worksheets("Family Relationship").ShowAllData
+    Range("A1").Select
+    Range("Q2").Select
+    Selection.End(xlDown).Select
+    Range(Selection, Selection.End(xlUp)).Select
+    Selection.NumberFormat = "mm/dd/yyyy"
+    Range("Q1").value = "Date"
+    Range("R2").Select
+    Selection.End(xlDown).Select
+    Pending = ActiveCell.Row - 1
+    Range(Selection, Selection.End(xlUp)).Select
+    Selection.value = "Present in Previous File"
+    Range("R1").value = "Entity Status"
+    Call Pendingvalues
+    Call newsubcreation
+
+    End Sub
+ Sub delNA()
+    lr = Cells(Rows.Count, "F").End(xlUp).Row 'find last row
+    For i = lr To 2 Step -1 'loop thru backwards, finish at 2 for headers
+        If Cells(i, "F").Text = "#N/A" Then Rows(i).EntireRow.Delete
+    Next i
+End Sub
+Sub newsubcreation()
+'
+' new sub sheet creation Macro
+'
+
+'
+    Worksheets("NewSubs").Activate
+    Range("A1").Select
+    Range("A" & Rows.Count).End(xlUp).Select
+    Dim lastrownewsub As Integer
+    lastrownewsub = ActiveCell.Row
+    Dim myrange As String
+    myrange = "F2:F" & lastrownewsub
+    Range("F2").Select
+    Range(myrange).ClearContents
+    Range("Q2").Select
+    Selection.value = Format(Date, "mm/dd/yyyy")
+    myrange = "Q2:Q" & lastrownewsub
+    Range(myrange).FillDown
+    Range("R2").Select
+    Selection.value = "New Submission"
+    myrange = "R2:R" & lastrownewsub
+    Range(myrange).FillDown
+    Range("S2:AC" & lastrownewsub).ClearContents
+    Range("A1").Select
+    newsubvalue = lastrownewsub - 1
+    MsgBox "New submissions: " & newsubvalue
+    Call Allocation
+    ActiveWorkbook.Sheets("NewSubs").UsedRange.Copy
+    ActiveWorkbook.Sheets("Family Relationship").Select
+    Range("A1").Select
+    Range("A" & Rows.Count).End(xlUp).Select
+    ActiveCell.Offset(1, 0).Select
+    Dim delrowhdr As String
+    delrowhdr = ActiveCell.Address
+    Call delay(2)
+    ActiveWorkbook.Sheets("Family Relationship").Paste
+    Range(delrowhdr).Select
+    Application.DisplayAlerts = False
+    Selection.EntireRow.Delete
+    Range("A1").Select
+    ActiveWorkbook.Sheets("NewSubs").Delete
+    Application.DisplayAlerts = True
+    Worksheets("Family Relationship").Activate
+End Sub
+
+Sub Send_Email()
+'Tools-Reference-You have check "MICROSOFT OUTLOOK 14.0 OBJECT LIBRARY"
+
+  Dim OutlookApp As Object
+  Dim OutlookMail As Object
+
+  Set OutlookApp = CreateObject("Outlook.Application")
+  Set OutlookMail = OutlookApp.CreateItem(o)
+  
+  With OutlookMail
+    .Display
+    .HTMLBody = "Hi All," & "<br>" & "<br>" & "The FRV file is saved in the SD." & "<br>" & "<br>" & "Total No. of records: " & Pending + newsubvalue & "<br>" & "<br>" & "New Submission: " & newsubvalue & "<br>" & "<br>" & "Aarushi: " & AB & "<br>" & "Ankur: " & AT & "<br>" & "Parth: " & PS & "<br>" & "Eram: " & EK & "<br>" & "<br>" & "Pending : " & Pending & "<br>" & "<br>" & "Aarushi: " & ABP & "<br>" & "Ankur: " & ATP & "<br>" & "Parth: " & PSP & "<br>" & "Eram: " & EKP & "<br>" & "<br>" & "As communicated earlier, please do not keep actions pending until Monday morning. Ensure to complete them by Friday EOD, otherwise, there are last minutes issues in processing the entities."
+    'last .HTMLBody can include signature from the outlook.
+'<br> includes line breaks b/w two lines
+    .To = "email1;email2"
+    .CC = "email1;email2"
+    .Subject = "xxx"
+    '.Attachments = ThisWorkbook
+    '.Send
+  End With
+
+End Sub
+Sub delay(seconds As Long)
+    Dim endTime As Date
+    endTime = DateAdd("s", seconds, Now())
+    Do While Now() < endTime
+        DoEvents
+    Loop
+End Sub
+Sub Allocation()
+'for allocation in frv
+'
+
+If newsubvalue Mod 2 = 0 Then
+AB = newsubvalue / 4
+AT = newsubvalue / 4
+PS = newsubvalue / 4
+
+AB = CInt(AB)
+AT = CInt(AT)
+PS = CInt(PS)
+
+EK = newsubvalue - (AB + AT + PS)
+
+Else
+Odd = newsubvalue - 1
+AB = Odd / 4
+AT = Odd / 4
+PS = Odd / 4
+
+AB = CInt(AB)
+AT = CInt(AT)
+PS = CInt(PS)
+
+EK = newsubvalue - (AB + AT + PS)
+End If
+
+Range("S2").Select
+
+For i = 1 To AB
+Selection.value = "Aarushi Bhatia"
+ActiveCell.Offset(1, 0).Select
+Next i
+
+For i = 1 To AT
+Selection.value = "Ankur Tyagi"
+ActiveCell.Offset(1, 0).Select
+Next i
+
+For i = 1 To PS
+Selection.value = "Parth Shukla"
+ActiveCell.Offset(1, 0).Select
+Next i
+
+For i = 1 To EK
+Selection.value = "Eram Khan"
+ActiveCell.Offset(1, 0).Select
+Next i
+
+Range("A1").Select
+
+End Sub
+Sub Pendingvalues()
+
+Set rng = Range("S2:S1500")
+
+ABP = Application.WorksheetFunction.Countif(rng, "Aarushi Bhatia")
+ATP = Application.WorksheetFunction.Countif(rng, "Ankur Tyagi")
+EKP = Application.WorksheetFunction.Countif(rng, "Eram Khan")
+PSP = Application.WorksheetFunction.Countif(rng, "Parth Shukla")
+
+End Sub
